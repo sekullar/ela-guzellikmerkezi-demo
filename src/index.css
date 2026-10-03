@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --color-incir: #2b1830;
+  --color-sedef: #f3eef5;
+  --color-fistik: #b5c7a5;
+  --color-gul: #c98fa0;
+  --color-bal: #e3b873;
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Figtree", system-ui, sans-serif;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+body { background: var(--color-sedef); color: var(--color-incir); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 2px solid var(--color-gul); outline-offset: 3px; }
+
+@layer components {
+  .btn { @apply inline-flex items-center justify-center rounded-full bg-incir px-6 py-3 text-sm font-medium text-sedef transition duration-300 hover:bg-gul hover:text-incir active:scale-95; }
+  .btn-ghost { @apply inline-flex items-center justify-center rounded-full border border-incir/30 px-6 py-3 text-sm font-medium text-incir transition duration-300 hover:bg-incir hover:text-sedef active:scale-95; }
+  .field { @apply w-full rounded-xl border border-incir/20 bg-white/60 px-4 py-3 text-base outline-none transition focus:border-gul focus:bg-white; }
+}
+
+@keyframes open { from { transform: scaleY(.04); opacity: 0 } to { transform: scaleY(1); opacity: 1 } }
+@keyframes iris { from { transform: scale(.3); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+@keyframes drift { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+@keyframes rise { from { opacity: 0; transform: translateY(18px) } to { opacity: 1; transform: none } }
+@keyframes sheen { 0%,100% { transform: translateX(0) } 50% { transform: translateX(-40px) } }
+
+.eye-open { transform-origin: 50% 50%; transform-box: fill-box; animation: open 1.4s cubic-bezier(.2,.8,.2,1) both; }
+.iris { transform-origin: 50% 50%; transform-box: fill-box; animation: iris 1.2s .8s cubic-bezier(.2,.8,.2,1) both; }
+.sheen { animation: sheen 14s ease-in-out infinite; }
+.spark { transform-box: fill-box; transform-origin: center; animation: drift 6s ease-in-out infinite; }
+.rise { animation: rise .9s cubic-bezier(.2,.8,.2,1) both; }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+.reveal.in { opacity: 1; transform: none; }
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .reveal { opacity: 1; transform: none; }
+}
